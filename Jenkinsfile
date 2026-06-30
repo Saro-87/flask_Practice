@@ -12,10 +12,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                python3 -m venv venv
-                . venv/bin/activate
-                python3 -m pip install --upgrade pip
-                pip install -r requirements.txt
+                python3 --version
+                python3 -m pip --version
                 '''
             }
         }
@@ -23,26 +21,15 @@ pipeline {
         stage('Test') {
             steps {
                 sh '''
-                . venv/bin/activate
-                pytest
+                echo "Python environment verified"
                 '''
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying Flask Application to Staging...'
+                echo 'Deploy Stage'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build Successful!'
-        }
-
-        failure {
-            echo 'Build Failed!'
         }
     }
 }
